@@ -1,22 +1,17 @@
 <script lang="ts" setup>
 import DepartmentForm from "@/components/forms/DepartmentForm.vue";
-import { ref, onMounted } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import departmentService from "../../services/api-department.service";
 import type EditDepartmentDto from "@/models/departments/edit-department.model";
+import { useFetch } from "@/composable/useFetch";
+import type DepartmentDto from "@/models/departments/department.model";
+import departmentBaseUrl from "@/utils/department-url.util";
 
 const router = useRouter();
 
 const { id } = useRoute().params;
 
-const department = ref<EditDepartmentDto>(null!);
-
-onMounted(() => {
-  departmentService.findOne(+id).then((resp) => {
-    department.value = resp.data;
-    console.log("In-edit-department, oldDepartment : ", department.value);
-  });
-});
+const {resource: department} = useFetch<DepartmentDto>(`${departmentBaseUrl}/${id}`)
 
 const backToList = () => {
   router.push("/departments");

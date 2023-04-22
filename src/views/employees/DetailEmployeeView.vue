@@ -1,22 +1,12 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
 import { useRoute} from "vue-router";
-import employeeService from "../../services/api-employee.service";
 import type ListEmployeeDto from "@/models/employees/list-employee.model";
+import { useFetch } from "@/composable/useFetch";
+import employeeBaseUrl from "@/utils/employee-url.util";
 
-const employee = ref<ListEmployeeDto>(null!);
 const { id } = useRoute().params;
 
-onMounted(() => {
-  employeeService
-    .findOne(+id)
-    .then((resp) => {
-      employee.value = resp.data;
-      console.log("in-detail-employees : ", resp.data);
-           
-    })
-    .catch((err) => console.log("error : ", err.message));
-});
+const {resource: employee} = useFetch<ListEmployeeDto>(`${employeeBaseUrl}/${id}`)
 </script>
 
 <template>

@@ -1,18 +1,10 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
-import employeeService from "../../services/api-employee.service";
 import type ListEmployeeDto from "@/models/employees/list-employee.model";
+import { useFetch } from '../../composable/useFetch';
+import employeeBaseUrl from '@/utils/employee-url.util';
 
-const employees = ref<ListEmployeeDto[]>(null!);
-
-onMounted(() => {
-  employeeService.findAll().then((resp) => {
-    employees.value = resp.data;
-    console.log("employees : ", resp.data);
-  })
-  .catch(err => console.log("error : ", err.message))
-});
+const {resource: employees} = useFetch<ListEmployeeDto[]>(employeeBaseUrl)
 </script>
 
 <template>

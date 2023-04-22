@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import type DepartmentDto from "../../models/departments/department.model";
 import departmentService from "../../services/api-department.service";
 import DeleteItemVue from "../../utils/DeleteItem.vue";
+import { useFetch } from '../../composable/useFetch';
+import departmentBaseUrl from "@/utils/department-url.util";
 
-const department = ref<DepartmentDto>(null!);
 const { id } = useRoute().params;
 const router = useRouter();
 
@@ -13,15 +14,7 @@ const deleteMessage = ref("");
 const deleteTitle = ref("");
 const showDeleteItem = ref(false);
 
-onMounted(() => {
-  departmentService
-    .findOne(+id)
-    .then((resp) => {
-      department.value = resp.data;
-      console.log("in-detail-departments : ", resp.data);
-    })
-    .catch((err) => console.log("error : ", err.message));
-});
+const {resource: department} = useFetch<DepartmentDto>(`${departmentBaseUrl}/${id}`)
 
 const deleteClick = () => {
   deleteMessage.value = `Do you want to delete department : ${department.value.name}`;
@@ -84,7 +77,7 @@ const deleteDepartment = (value: boolean) => {
   </div>
 </template>
 
-<style>
+<style scoped>
 .pado {
   padding: 10px;
 }

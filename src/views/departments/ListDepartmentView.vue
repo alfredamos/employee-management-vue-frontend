@@ -1,20 +1,11 @@
 <script lang="ts" setup>
-import { onMounted, ref } from "vue";
 import { RouterLink } from "vue-router";
 import type DepartmentDto from "../../models/departments/department.model";
-import departmentService from "../../services/api-department.service";
+import { useFetch } from "@/composable/useFetch";
+import departmentBaseUrl from "@/utils/department-url.util";
 
-const departments = ref<DepartmentDto[]>(null!);
+const {resource: departments} = useFetch<DepartmentDto[]>(departmentBaseUrl)
 
-onMounted(() => {
-  departmentService
-    .findAll()
-    .then((resp) => {
-      departments.value = resp.data;
-      console.log("departments : ", departmentService);
-    })
-    .catch((err) => console.log("error : ", err.message));
-});
 </script>
 
 <template>

@@ -1,11 +1,12 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import employeeService from "../../services/api-employee.service";
 import DeleteItemVue from "../../utils/DeleteItem.vue";
 import type ListEmployeeDto from "@/models/employees/list-employee.model";
+import { useFetch } from '../../composable/useFetch';
+import employeeBaseUrl from "@/utils/employee-url.util";
 
-const employee = ref<ListEmployeeDto>(null!);
 const { id } = useRoute().params;
 const router = useRouter();
 
@@ -13,15 +14,7 @@ const deleteMessage = ref("");
 const deleteTitle = ref("");
 const showDeleteItem = ref(false);
 
-onMounted(() => {
-  employeeService
-    .findOne(+id)
-    .then((resp) => {
-      employee.value = resp.data;
-      console.log("in-detail-employees : ", resp.data);
-    })
-    .catch((err) => console.log("error : ", err.message));
-});
+const {resource: employee} = useFetch<ListEmployeeDto>(`${employeeBaseUrl}/${id}`)
 
 const deleteClick = () => {
   deleteMessage.value = `Do you want to delete employee : ${employee.value.name}`;
@@ -43,6 +36,7 @@ const deleteEmployee = (value: boolean) => {
     router.push("/");
   }
 };
+
 </script>
 
 <template>
