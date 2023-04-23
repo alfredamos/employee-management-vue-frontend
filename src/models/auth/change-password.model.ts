@@ -4,3 +4,5 @@ class ChangePasswordDto{
       newPassword!: string;
       confirmPassword!: string;
 }
+
+export default ChangePasswordDto
