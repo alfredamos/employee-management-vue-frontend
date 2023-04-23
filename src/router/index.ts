@@ -11,10 +11,8 @@ import DetailDepartmentView from "@/views/departments/DetailDepartmentView.vue";
 import EditDepartmentView from "@/views/departments/EditDepartmentView.vue";
 import ListDepartmentView from "@/views/departments/ListDepartmentView.vue";
 
-import AddEmployeeView from "@/views/employees/AddEmployeeView.vue";
 import DeleteEmployeeView from "@/views/employees/DeleteEmployeeView.vue";
 import DetailEmployeeView from "@/views/employees/DetailEmployeeView.vue";
-import EditEmployeeView from "@/views/employees/EditEmployeeView.vue";
 import ListEmployeeView from "@/views/employees/ListEmployeeView.vue";
 
 const router = createRouter({
@@ -68,25 +66,15 @@ const router = createRouter({
     },
 
     {
-      path: "/add-employee",
-      name: "add-employee",
-      component: AddEmployeeView,
-    },
-    {
       path: "/delete-employee/:id",
       name: "delete-employee",
       component: DeleteEmployeeView,
-    },
+    },   
     {
       path: "/detail-employee/:id",
       name: "detail-employee",
       component: DetailEmployeeView,
-    },
-    {
-      path: "/edit-employee/:id",
-      name: "edit-employee",
-      component: EditEmployeeView,
-    },
+    },    
     {
       path: "/",
       name: "list-employee",

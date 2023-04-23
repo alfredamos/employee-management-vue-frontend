@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type DepartmentDto from "@/models/departments/department.model";
-import { defineEmits, defineProps, ref } from "vue";
-
+import { ref } from "vue";
 const {initialDepartment} = defineProps(["initialDepartment"])
 
 const emit = defineEmits(["onDepartmentSubmit", "onBackToList"])

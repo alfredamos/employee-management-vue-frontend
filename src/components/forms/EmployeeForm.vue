@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { ref } from "vue";
-import { defineEmits, defineProps } from "vue";
 import type EmployeeDto from "../../models/employees/employee.model";
 import type DepartmentDto from "../../models/departments/department.model";
 

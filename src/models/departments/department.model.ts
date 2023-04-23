@@ -1,4 +1,4 @@
 export default class DepartmentDto{
-      id = 0;
+      id = "";
       name!: string;
 }

@@ -1,8 +1,10 @@
+import type Gender from "../enum/gender.enum";
+
 export default class EmployeeDto{
-      id = 0;
+      id = "";
       name!: string;
       email!: string;
-      gender!: string;
+      gender!: Gender;
       photoPath?: string;
       departmentId!: number;
 }
