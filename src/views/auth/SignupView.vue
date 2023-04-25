@@ -7,12 +7,14 @@ import type AuthUserDto from "../../models/auth/auth-user.model";
 import { apiContext } from "../../behavior-subject/auth-context.rxjs";
 import SignupForm from "@/components/forms/SignupForm.vue";
 import type DepartmentDto from '../../models/departments/department.model';
+import { useFetch } from '../../composable/useFetch';
+import departmentBaseUrl from '../../utils/department-url.util';
 
 const router = useRouter();
 
 const authUser = ref<AuthUserDto>(null!);
-const departments = ref<DepartmentDto[]>([])
-
+//const departments = ref<DepartmentDto[]>([])
+const {resource: departments} = useFetch<DepartmentDto[]>(departmentBaseUrl)
 const signupSubmit = (signupDto: SignupDto) => {
   console.log("signup, signupDto : ", signupDto);
 
@@ -35,6 +37,7 @@ const backToList = () => {
 
 <template>
   <SignupForm
+  v-if="departments"
   :departments="departments"
   @onBackToList="backToList"
   @onSignupSubmit="signupSubmit"

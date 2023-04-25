@@ -1,10 +1,11 @@
 <script lang="ts" setup>
 import { RouterLink } from "vue-router";
 import type ListEmployeeDto from "@/models/employees/list-employee.model";
-import { useFetch } from '../../composable/useFetch';
-import employeeBaseUrl from '@/utils/employee-url.util';
+import { useFetch } from "../../composable/useFetch";
+import employeeBaseUrl from "@/utils/employee-url.util";
+import moment from "moment";
 
-const {resource: employees} = useFetch<ListEmployeeDto[]>(employeeBaseUrl)
+const { resource: employees } = useFetch<ListEmployeeDto[]>(employeeBaseUrl);
 </script>
 
 <template>
@@ -20,6 +21,7 @@ const {resource: employees} = useFetch<ListEmployeeDto[]>(employeeBaseUrl)
               <th>Name</th>
               <th>Email</th>
               <th>Gender</th>
+              <th>Birthday</th>
               <th>Department</th>
               <th>Action</th>
             </tr>
@@ -30,18 +32,14 @@ const {resource: employees} = useFetch<ListEmployeeDto[]>(employeeBaseUrl)
                 <router-link
                   class="text-deco-non"
                   :to="`/detail-employee/${employee?.id}`"
-                  >{{ employee?.name }}</router-link
+                  >{{ employee?.fullName }}</router-link
                 >
               </td>
               <td>{{ employee?.email }}</td>
               <td>{{ employee?.gender }}</td>
+              <td>{{ moment(employee.dateOfBirth).format("MMMM DD YYYY") }}</td>
               <td>{{ employee?.department?.name }}</td>
               <td>
-                <router-link
-                  class="btn btn-outline-warning m-1 fw-bold"
-                  :to="`/edit-employee/${employee?.id}`"
-                  >Edit</router-link
-                >
                 <router-link
                   class="btn btn-outline-danger m-1 fw-bold"
                   :to="`/delete-employee/${employee?.id}`"
@@ -53,11 +51,9 @@ const {resource: employees} = useFetch<ListEmployeeDto[]>(employeeBaseUrl)
         </table>
       </div>
       <div class="card-footer">
-        <router-link
-          class="btn btn-outline-secondary form-control m-1 fw-bold"
-          to="/add-employee"
-          >Add Employee</router-link
-        >
+        <RouterLink to="/signup" class="btn btn-outline-secondary form-control m-1 fw-bold">
+          Add Employee
+        </RouterLink>
       </div>
     </div>
   </div>

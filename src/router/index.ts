@@ -14,6 +14,8 @@ import ListDepartmentView from "@/views/departments/ListDepartmentView.vue";
 import DeleteEmployeeView from "@/views/employees/DeleteEmployeeView.vue";
 import DetailEmployeeView from "@/views/employees/DetailEmployeeView.vue";
 import ListEmployeeView from "@/views/employees/ListEmployeeView.vue";
+import LogoutView from "@/views/auth/LogoutView.vue"
+import HomeView from "@/views/auth/HomeView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +34,16 @@ const router = createRouter({
       path: "/login",
       name: "login",
       component: LoginView,
+    },
+    {
+      path: "/logout",
+      name: "logout",
+      component: LogoutView
+    },
+    {
+      path: "/home",
+      name: "home",
+      component: HomeView
     },
     {
       path: "/signup",

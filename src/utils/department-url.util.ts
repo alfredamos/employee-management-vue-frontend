@@ -1,3 +1,5 @@
-const departmentBaseUrl = "https:localhost:7253/api/departments";
+import { baseUrl } from "./base-url.util";
+
+const departmentBaseUrl = "/departments";
 
 export default departmentBaseUrl;

@@ -7,17 +7,20 @@ import type AuthUserDto from "../../models/auth/auth-user.model";
 import { apiContext } from "../../behavior-subject/auth-context.rxjs";
 import EditProfileForm from "@/components/forms/EditProfileForm.vue";
 import type DepartmentDto from '../../models/departments/department.model';
-import { useAuthUser} from '../../composable/useAuthUser';
+import type CurrentUserDto from '../../models/auth/current-user.model';
+import { useFetch } from '../../composable/useFetch';
+import departmentBaseUrl from '../../utils/department-url.util';
 
 const router = useRouter();
 
 const authUser = ref<AuthUserDto>(null!);
-const departments = ref<DepartmentDto[]>([])
-
-const {currentUser} = useAuthUser()
+const currentUser = ref<CurrentUserDto>(null!)
+currentUser.value = apiContext.getAuthUser().user!
+const {resource: departments} = useFetch<DepartmentDto[]>(departmentBaseUrl)
+console.log({currentUser});
 
 const oldProfile = ref<EditProfileDto>({
-     ...currentUser.value,
+     ...currentUser.value,     
      password: "",
      newPassword: ""
 })
@@ -44,6 +47,7 @@ const backToList = () => {
 
 <template>
   <EditProfileForm
+  v-if="departments && oldProfile"
   :oldProfile="oldProfile"
   :departments="departments"
   @onBackToList="backToList"

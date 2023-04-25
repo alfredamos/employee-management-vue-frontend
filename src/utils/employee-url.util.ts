@@ -1,3 +1,5 @@
-const employeeBaseUrl = "https:localhost:7253/api/employees";
+import { baseUrl } from "./base-url.util";
+
+const employeeBaseUrl = "/employees";
 
 export default employeeBaseUrl;

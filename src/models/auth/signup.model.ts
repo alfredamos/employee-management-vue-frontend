@@ -1,10 +1,10 @@
 import type UserType from "../enum/user-type.enum";
 
 class SignupDto {
-  name!: string;
+  fullName!: string;
   email!: string;
   gender!: string;
-  photoPath?: string;
+  phone!: string;
   password!: string;
   confirmPassword!: string;
   departmentId!: number;

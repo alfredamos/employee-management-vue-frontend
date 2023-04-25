@@ -1,41 +1,28 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import { useRouter } from "vue-router";
 import type LoginDto from "../../models/auth/login.model";
 import ApiAuth from "../../services/api-auth.service";
-import type AuthUserDto from "../../models/auth/auth-user.model";
 import { apiContext } from "../../behavior-subject/auth-context.rxjs";
 import LoginForm from "@/components/forms/LoginForm.vue";
 
 const router = useRouter();
 
-const authUser = ref<AuthUserDto>(null!);
-
 const loginSubmit = (loginDto: LoginDto) => {
-  console.log("login, loginDto : ", loginDto);
 
   ApiAuth.login(loginDto)
-  .then((resp) => {
-    authUser.value = resp.data;
+    .then((resp) => {
+      apiContext.login(resp.data);
 
-    apiContext.updateAuthUser$(authUser.value);
-
-    router.push("/");
-  })
-  .catch(err => console.log("error : ", err.message)
-  )
+      router.push("/");
+    })
+    .catch((err) => console.log("error : ", err.message));
 };
 
 const backToList = () => {
-      router.push("/")
-}
+  router.push("/");
+};
 </script>
 
 <template>
-  <LoginForm
-  @onBackToList="backToList"
-  @onLoginSubmit="loginSubmit"
-  />
+  <LoginForm @onBackToList="backToList" @onLoginSubmit="loginSubmit" />
 </template>
-
-

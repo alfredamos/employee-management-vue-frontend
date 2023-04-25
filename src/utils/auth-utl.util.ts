@@ -1,5 +1,6 @@
+import { baseUrl } from "./base-url.util";
 
-const authBaseUrl = "https:localhost:7253/api/auth";
+const authBaseUrl = "/auth";
 
 interface AuthUrl{
       changePasswordUrl: string;

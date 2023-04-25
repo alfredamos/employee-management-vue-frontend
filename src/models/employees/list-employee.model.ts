@@ -1,11 +1,6 @@
 import type DepartmentDto from '../departments/department.model';
+import EmployeeDto from './employee.model';
 
-export default class ListEmployeeDto {
-  id = "";
-  name!: string;
-  email!: string;
-  gender!: string;
-  photoPath?: string;
-  departmentId!: number;
+export default class ListEmployeeDto extends EmployeeDto{  
   department?: DepartmentDto;
 }

@@ -1,23 +1,27 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import employeeService from "../../services/api-employee.service";
 import DeleteItemVue from "../../utils/DeleteItem.vue";
 import type ListEmployeeDto from "@/models/employees/list-employee.model";
-import { useFetch } from '../../composable/useFetch';
+import { useFetch } from "../../composable/useFetch";
 import employeeBaseUrl from "@/utils/employee-url.util";
+import { ApiGeneral } from "../../services/api-general.service";
 
 const { id } = useRoute().params;
 const router = useRouter();
+
+const url = `${employeeBaseUrl}/${id}`;
 
 const deleteMessage = ref("");
 const deleteTitle = ref("");
 const showDeleteItem = ref(false);
 
-const {resource: employee} = useFetch<ListEmployeeDto>(`${employeeBaseUrl}/${id}`)
+const { resource: employee } = useFetch<ListEmployeeDto>(
+  `${employeeBaseUrl}/${id}`
+);
 
 const deleteClick = () => {
-  deleteMessage.value = `Do you want to delete employee : ${employee.value.name}`;
+  deleteMessage.value = `Do you want to delete employee : ${employee.value.fullName}`;
   deleteTitle.value = "Employee Delete Confirmation!";
   showDeleteItem.value = true;
 };
@@ -28,7 +32,7 @@ const backToList = () => {
 
 const deleteEmployee = (value: boolean) => {
   if (value) {
-    employeeService.remove(+id).then((resp) => {
+    ApiGeneral.remove(url).then((resp) => {
       employee.value = resp.data;
       router.push("/");
     });
@@ -36,7 +40,6 @@ const deleteEmployee = (value: boolean) => {
     router.push("/");
   }
 };
-
 </script>
 
 <template>
@@ -55,10 +58,18 @@ const deleteEmployee = (value: boolean) => {
       </div>
       <div class="card-body">
         <ul class="list-group">
-          <li class="list-group-item">Name : &nbsp; <strong>{{ employee.name }}</strong></li>
-          <li class="list-group-item">Email : &nbsp; <strong>{{ employee.email }}</strong></li>
-          <li class="list-group-item">Gender : &nbsp; <strong>{{ employee.gender }}</strong></li>
-          <li class="list-group-item">Department : &nbsp; <strong>{{ employee.department?.name }}</strong></li>
+          <li class="list-group-item">
+            Name : &nbsp; <strong>{{ employee.fullName }}</strong>
+          </li>
+          <li class="list-group-item">
+            Email : &nbsp; <strong>{{ employee.email }}</strong>
+          </li>
+          <li class="list-group-item">
+            Gender : &nbsp; <strong>{{ employee.gender }}</strong>
+          </li>
+          <li class="list-group-item">
+            Department : &nbsp; <strong>{{ employee.department?.name }}</strong>
+          </li>
         </ul>
       </div>
       <div class="card-footer">

@@ -1,31 +1,31 @@
-import axios from "axios";
+import Axios from "@/utils/axios-interceptor.util";
 
 interface Entity {
-  id: number;
+  id: string;
 }
 
 export default class ApiService<T extends Entity> {
   constructor(public url: string) {}
 
   create(resource: T) {
-    return axios.post(this.url, resource);
+    return Axios.post(this.url, resource);
   }
 
   edit(resource: T) {
     console.log("resource : ", resource);
 
-    return axios.put(`${this.url}/${resource.id}`, resource);
+    return Axios.put(`${this.url}/${resource.id}`, resource);
   }
 
   findAll() {
-    return axios.get(this.url);
+    return Axios.get(this.url);
   }
 
-  findOne(id: number) {
-    return axios.get(`${this.url}/${id}`);
+  findOne(id: string) {
+    return Axios.get(`${this.url}/${id}`);
   }
 
-  remove(id: number) {
-    return axios.delete(`${this.url}/${id}`);
+  remove(id: string) {
+    return Axios.delete(`${this.url}/${id}`);
   }
 }

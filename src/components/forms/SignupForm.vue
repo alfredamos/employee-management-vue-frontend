@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import type SignupDto from "../../models/auth/signup.model";
 import type DepartmentDto from "../../models/departments/department.model";
+import Gender from '../../models/enum/gender.enum';
 
 interface Props { 
   departments: DepartmentDto[];
@@ -10,7 +11,18 @@ interface Props {
 const { departments } = defineProps<Props>();
 const emit = defineEmits(["onBackToList", "onSignupSubmit"]);
 
-const signup = ref<SignupDto>(null!);
+const signup = ref<SignupDto>({
+  fullName: "",
+  email: "",
+  phone: "",
+  dateOfBirth: new Date(),
+  gender: Gender.Male,
+  password: "",
+  confirmPassword: "",
+  departmentId: null!
+
+  
+});
 
 const backToList = () => {
   emit("onBackToList");
@@ -30,11 +42,11 @@ const submitSignup = () => {
         </div>
         <div class="card-body">
           <div class="mb-3">
-            <label for="name" class="form-label">Name</label>
+            <label for="fullName" class="form-label">Name</label>
             <input
-            id="name"
+            id="fullName"
               type="text"
-              v-model.trim="signup.name"
+              v-model.trim="signup.fullName"
               class="form-control"
             />
           </div>
@@ -44,6 +56,15 @@ const submitSignup = () => {
             id="email"
               type="email"
               v-model.trim="signup.email"
+              class="form-control"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone</label>
+            <input
+            id="phone"
+              type="tel"
+              v-model.trim="signup.phone"
               class="form-control"
             />
           </div>

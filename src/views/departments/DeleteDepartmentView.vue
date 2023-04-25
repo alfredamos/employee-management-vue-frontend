@@ -2,13 +2,15 @@
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import type DepartmentDto from "../../models/departments/department.model";
-import departmentService from "../../services/api-department.service";
 import DeleteItemVue from "../../utils/DeleteItem.vue";
 import { useFetch } from '../../composable/useFetch';
 import departmentBaseUrl from "@/utils/department-url.util";
+import { ApiGeneral } from '../../services/api-general.service';
 
-const { id } = useRoute().params;
+const {id} = useRoute().params;
 const router = useRouter();
+
+const url = `${departmentBaseUrl}/${id}`
 
 const deleteMessage = ref("");
 const deleteTitle = ref("");
@@ -28,7 +30,7 @@ const backToList = () => {
 
 const deleteDepartment = (value: boolean) => {
   if (value) {
-    departmentService.remove(+id).then((resp) => {
+    ApiGeneral.remove(url).then((resp) => {
       department.value = resp.data;
       router.push("/departments");
     });

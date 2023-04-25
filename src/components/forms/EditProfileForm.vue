@@ -33,52 +33,52 @@ const submitEditProfile = () => {
           <div class="mb-3">
             <label for="fullName" class="form-label">Name</label>
             <input
-            id="fullName"
+              id="fullName"
               type="text"
-              v-model.trim="editProfile.fullName"
+              v-model="editProfile.fullName"
               class="form-control"
             />
           </div>
           <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input
-            id="email"
+              id="email"
               type="email"
-              v-model.trim="editProfile.email"
+              v-model="editProfile.email"
               class="form-control"
             />
           </div>
           <div class="mb-3">
             <label for="phone" class="form-label">Phone</label>
             <input
-            id="phone"
+              id="phone"
               type="tel"
-              v-model.trim="editProfile.phone"
+              v-model="editProfile.phone"
               class="form-control"
             />
           </div>
           <div class="mb-3">
             <label for="password" class="form-label">Password</label>
             <input
-            id="password"
+              id="password"
               type="password"
-              v-model.trim="editProfile.password"
+              v-model="editProfile.password"
               class="form-control"
             />
           </div>
           <div class="mb-3">
             <label for="newPassword" class="form-label">New Password</label>
             <input
-            id="newPassword"
+              id="newPassword"
               type="password"
-              v-model.trim="editProfile.newPassword"
+              v-model="editProfile.newPassword"
               class="form-control"
             />
           </div>
           <div class="mb-3">
             <label for="dateOfBirth" class="form-label">Birthday</label>
             <input
-            id="dateOfBirth"
+              id="dateOfBirth"
               type="date"
               v-model="editProfile.dateOfBirth"
               class="form-control"
@@ -97,7 +97,11 @@ const submitEditProfile = () => {
           </div>
           <div class="mb-3">
             <label for="departmentId" class="form-label">Department</label>
-            <select id="departmentId" v-model="editProfile.departmentId" class="form-select">
+            <select
+              id="departmentId"
+              v-model="editProfile.departmentId"
+              class="form-select"
+            >
               <option value="">Please select department</option>
               <option
                 v-for="department in departments"

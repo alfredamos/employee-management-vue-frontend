@@ -1,7 +1,11 @@
-import axios from "axios";
+import Axios from "@/utils/axios-interceptor.util";
 
 export class ApiGeneral{
       static get(url: string){
-            return axios.get(url);
+            return Axios.get(url);
+      }
+
+      static remove(url: string){
+            return Axios.delete(url);
       }
 }
