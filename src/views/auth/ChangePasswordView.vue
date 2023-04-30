@@ -3,22 +3,29 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import type ChangePasswordDto from "../../models/auth/change-password.model";
 import ApiAuth from "../../services/api-auth.service";
-import type AuthUserDto from "../../models/auth/auth-user.model";
 import { apiContext } from "../../behavior-subject/auth-context.rxjs";
 import ChangePasswordForm from "@/components/forms/ChangePasswordForm.vue";
+import type CurrentUserDto from "@/models/auth/current-user.model";
 
 const router = useRouter();
 
-const authUser = ref<AuthUserDto>(null!);
+const currentUser = ref<CurrentUserDto>(null!)
+currentUser.value = apiContext.getAuthUser().user!
+
+const oldEmployeeCredential = ref<ChangePasswordDto>({
+  email: currentUser.value.email,
+  password: "",
+  newPassword: "",
+  confirmPassword: ""
+})
 
 const changePasswordSubmit = (changePasswordDto: ChangePasswordDto) => {
   console.log("changePassword, changePasswordDto : ", changePasswordDto);
 
   ApiAuth.changePassword(changePasswordDto)
   .then((resp) => {
-    authUser.value = resp.data;
 
-    apiContext.updateAuthUser$(authUser.value);
+    apiContext.updateAuthUser$(resp.data);
 
     router.push("/");
   })
@@ -33,6 +40,8 @@ const backToList = () => {
 
 <template>
   <ChangePasswordForm
+  v-if="oldEmployeeCredential"
+  :oldEmployeeCredential="oldEmployeeCredential"
   @onBackToList="backToList"
   @onChangePasswordSubmit="changePasswordSubmit"
   />
