@@ -6,6 +6,7 @@ import type ListEmployeeDto from "@/models/employees/list-employee.model";
 import { useFetch } from "../../composable/useFetch";
 import employeeBaseUrl from "@/utils/employee-url.util";
 import { ApiGeneral } from "../../services/api-general.service";
+import moment from "moment";
 
 const { id } = useRoute().params;
 const router = useRouter();
@@ -27,7 +28,7 @@ const deleteClick = () => {
 };
 
 const backToList = () => {
-  router.push("/employees");
+  router.push("/");
 };
 
 const deleteEmployee = (value: boolean) => {
@@ -63,6 +64,15 @@ const deleteEmployee = (value: boolean) => {
           </li>
           <li class="list-group-item">
             Email : &nbsp; <strong>{{ employee.email }}</strong>
+          </li>
+          <li class="list-group-item">
+            Phone : &nbsp; <strong>{{ employee.phone }}</strong>
+          </li>
+          <li class="list-group-item">
+            Birthday : &nbsp;
+            <strong>{{
+              moment(employee.dateOfBirth).format("MMMM DD YYYY")
+            }}</strong>
           </li>
           <li class="list-group-item">
             Gender : &nbsp; <strong>{{ employee.gender }}</strong>

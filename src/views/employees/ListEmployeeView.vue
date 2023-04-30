@@ -20,8 +20,9 @@ const { resource: employees } = useFetch<ListEmployeeDto[]>(employeeBaseUrl);
             <tr>
               <th>Name</th>
               <th>Email</th>
-              <th>Gender</th>
+              <th>Phone</th>
               <th>Birthday</th>
+              <th>Gender</th>
               <th>Department</th>
               <th>Action</th>
             </tr>
@@ -36,8 +37,11 @@ const { resource: employees } = useFetch<ListEmployeeDto[]>(employeeBaseUrl);
                 >
               </td>
               <td>{{ employee?.email }}</td>
+              <td>{{ employee?.phone }}</td>
+              <td>
+                {{ moment(employee?.dateOfBirth).format("MMMM DD YYYY") }}
+              </td>
               <td>{{ employee?.gender }}</td>
-              <td>{{ moment(employee.dateOfBirth).format("MMMM DD YYYY") }}</td>
               <td>{{ employee?.department?.name }}</td>
               <td>
                 <router-link
@@ -51,7 +55,10 @@ const { resource: employees } = useFetch<ListEmployeeDto[]>(employeeBaseUrl);
         </table>
       </div>
       <div class="card-footer">
-        <RouterLink to="/signup" class="btn btn-outline-secondary form-control m-1 fw-bold">
+        <RouterLink
+          to="/signup"
+          class="btn btn-outline-secondary form-control m-1 fw-bold"
+        >
           Add Employee
         </RouterLink>
       </div>

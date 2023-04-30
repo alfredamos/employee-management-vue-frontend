@@ -1,4 +1,3 @@
-import { baseUrl } from "./base-url.util";
 
 const authBaseUrl = "/auth";
 

@@ -16,7 +16,7 @@ export function useAuthUser() {
   onMounted(() => {
     subscription = apiContext.authUser$
       .pipe(
-        tap((user) => {
+        tap((user: AuthUserDto) => {
           authUser.value = user;
         })
       )
@@ -27,6 +27,6 @@ export function useAuthUser() {
     console.log("subs unmounted");
     subscription.unsubscribe();
   });
-  
+
   return { authUser, currentUser };
 }
